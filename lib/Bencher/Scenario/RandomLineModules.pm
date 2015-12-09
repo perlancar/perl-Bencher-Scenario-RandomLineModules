@@ -6,13 +6,61 @@ package Bencher::Scenario::RandomLineModules;
 use 5.010001;
 use strict;
 use warnings;
+use Log::Any::IfLOG '$log';
+
+sub _create_file {
+    my ($num_lines) = @_;
+
+    require File::Temp;
+    my ($fh, $filename) = File::Temp::tempfile();
+    for (1..$num_lines) {
+        print $fh sprintf("%049d\n", $_);
+    }
+    $filename;
+}
 
 our $scenario = {
     participants => [
         {
-            fcall_template => "File::Random::Pick::random_line(<file>)",
+            fcall_template => 'File::Random::Pick::random_line(<filename>)',
+        },
+        {
+            module => 'File::RandomLine',
+            code_template => 'my $rl = File::RandomLine->new(<filename>); $rl->next',
         },
     ],
+
+    datasets => [
+        {name=>'1k_line'  , _lines=>1_000     , args=>{filename=>undef}},
+        {name=>'10k_line' , _lines=>10_000    , args=>{filename=>undef}},
+        {name=>'100k_line', _lines=>100_000   , args=>{filename=>undef}, include_by_default=>0},
+        {name=>'1M_line'  , _lines=>1_000_000 , args=>{filename=>undef}, include_by_default=>0},
+        {name=>'10M_line' , _lines=>10_000_000, args=>{filename=>undef}, include_by_default=>0},
+    ],
+
+    before_gen_items => sub {
+        my %args = @_;
+        my $sc    = $args{scenario};
+
+        my $dss = $sc->{datasets};
+        for my $ds (@$dss) {
+            $log->infof("Creating temporary file with %d lines ...", $ds->{_lines});
+            $ds->{args}{filename} = _create_file($ds->{_lines});
+        }
+    },
+
+    before_return => sub {
+        my %args = @_;
+        my $sc    = $args{scenario};
+
+        my $dss = $sc->{datasets};
+        for my $ds (@$dss) {
+            my $filename = $ds->{args}{filename};
+            next unless $filename;
+            $log->infof("Unlinking %s", $filename);
+            unlink $filename;
+        }
+    },
 };
 
 1;
