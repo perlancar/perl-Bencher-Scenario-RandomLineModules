@@ -45,7 +45,9 @@ our $scenario = {
         my $dss = $sc->{datasets};
         for my $ds (@$dss) {
             $log->infof("Creating temporary file with %d lines ...", $ds->{_lines});
-            $ds->{args}{filename} = _create_file($ds->{_lines});
+            my $filename = _create_file($ds->{_lines});
+            $log->infof("Created file %s", $filename);
+            $ds->{args}{filename} = $filename;
         }
     },
 
