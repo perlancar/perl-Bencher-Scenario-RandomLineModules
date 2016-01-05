@@ -20,6 +20,7 @@ sub _create_file {
 }
 
 our $scenario = {
+    summary => 'Benchmark modules which pick random line(s) from a file',
     participants => [
         {
             fcall_template => 'File::Random::Pick::random_line(<filename>)',
@@ -66,8 +67,4 @@ our $scenario = {
 };
 
 1;
-# ABSTRACT: Benchmark modules which pick random line(s) from a file
-
-=head1 SYNOPSIS
-
- % bencher -m RandomLineModules [other options]...
+# ABSTRACT:
