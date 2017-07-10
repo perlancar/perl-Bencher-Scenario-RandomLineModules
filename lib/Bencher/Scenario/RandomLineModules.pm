@@ -6,7 +6,7 @@ package Bencher::Scenario::RandomLineModules;
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 
 sub _create_file {
     my ($num_lines) = @_;
@@ -45,9 +45,9 @@ our $scenario = {
 
         my $dss = $sc->{datasets};
         for my $ds (@$dss) {
-            $log->infof("Creating temporary file with %d lines ...", $ds->{_lines});
+            log_info("Creating temporary file with %d lines ...", $ds->{_lines});
             my $filename = _create_file($ds->{_lines});
-            $log->infof("Created file %s", $filename);
+            log_info("Created file %s", $filename);
             $ds->{args}{filename} = $filename;
         }
     },
@@ -60,7 +60,7 @@ our $scenario = {
         for my $ds (@$dss) {
             my $filename = $ds->{args}{filename};
             next unless $filename;
-            $log->infof("Unlinking %s", $filename);
+            log_info("Unlinking %s", $filename);
             unlink $filename;
         }
     },
