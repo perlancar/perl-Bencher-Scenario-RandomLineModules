@@ -1,11 +1,11 @@
-0.05    2017-07-10 (PERLANCAR)
+0.05    2017-07-10  Released-By: PERLANCAR
 
 	- No functional changes.
 
 	- Replace Log::Any with Log::ger.
 
 
-0.04    2017-01-25 (PERLANCAR)
+0.04    2017-01-25  Released-By: PERLANCAR
 
 	- No functional changes.
 
@@ -14,14 +14,14 @@
           type=x_benchmarks.
 
 
-0.03    2016-06-26 (PERLANCAR)
+0.03    2016-06-26  Released-By: PERLANCAR
 
         - No functional changes.
 
         - [build] Rebuild to show abstract.
 
 
-0.02    2016-01-05 (PERLANCAR)
+0.02    2016-01-05  Released-By: PERLANCAR
 
         - No functional changes.
 
@@ -29,6 +29,6 @@
           (0.03) which shows sample benchmark participants & results in POD.
 
 
-0.01    2015-12-09 (PERLANCAR)
+0.01    2015-12-09  Released-By: PERLANCAR
 
         - First release.
