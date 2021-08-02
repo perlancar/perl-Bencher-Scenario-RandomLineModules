@@ -2,3 +2,4 @@ Bencher-Scenario-RandomLineModules-*
 .build
 *~
 nytprof*
+.DS_Store
